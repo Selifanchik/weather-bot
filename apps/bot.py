@@ -5,6 +5,7 @@ from telegram.ext import CommandHandler, ContextTypes, ConversationHandler, Mess
 from apps.constants import TOKENWEATHERAPI
 from apps.weatherapi import Requests
 from apps.weatherconst import WINDDIR
+from apps.add_data import get_user
 
 CITY = 0
 
@@ -72,7 +73,8 @@ class BotConversation:
 Ветер {wind_dir} {round(wind, 1)} м/c, порывы до {round(wind_gust, 1)} м/c\n\
 Давление {round(pressure_mb, 1)} мм рт. ст.\n\
 Осадки {precip_mm} мм\n\
-Влажность {humidity}%')
+Влажность {humidity}%\n\
+{get_user()}')
 
 
         else:
