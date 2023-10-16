@@ -10,4 +10,6 @@ class Userbot(Base):
     __tablename__ = 'userbot'
     
     user_id = Column(Integer, autoincrement=True, primary_key=True, index=True)
-    user_name = Column(String, unique=True)
+    first_name = Column(String)
+    user_chatid = Column(String, unique=True)
+    username = Column(String)

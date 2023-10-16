@@ -5,7 +5,7 @@ from telegram.ext import CommandHandler, ContextTypes, ConversationHandler, Mess
 from apps.constants import TOKENWEATHERAPI
 from apps.weatherapi import Requests
 from apps.weatherconst import WINDDIR
-from apps.add_data import get_user
+from apps.add_data import add_user, get_user
 
 CITY = 0
 
@@ -49,16 +49,18 @@ class BotConversation:
         user_data = context.user_data
         text = update.message.text
         user_data = text
-
+        user_k = update.message.from_user
+        add_user(user_k.first_name, str(user_k.id), user_k.username)
+        d = get_user(str(user_k.id))
         req = Requests(TOKENWEATHERAPI) 
- 
+        print(user_k)
         data = req.getWeather(text) 
         
         if data.status_code == 200: 
             print(data.json())
             town = data.json()['location']['name']
             temp = data.json()['current']['temp_c']
-            feelslike_temp = data.json()['current']['feelslike_c']
+            feelslike_temp = data.json()['current']['feelslike_c'] 
             condition = data.json()['current']['condition']['text']
             wind = data.json()['current']['wind_kph'] * 1000 / 3600
             wind_gust = data.json()['current']['gust_kph'] * 1000 / 3600
@@ -74,7 +76,7 @@ class BotConversation:
 Давление {round(pressure_mb, 1)} мм рт. ст.\n\
 Осадки {precip_mm} мм\n\
 Влажность {humidity}%\n\
-{get_user()}')
+{d}')
 
 
         else:
