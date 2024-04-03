@@ -1,4 +1,4 @@
 import os
 
-TOKEN = os.getenv('TOKEN', '6010035066:AAGMXbSw7X3-PCcfccr7-qmBKDSQnjv_NtA')
-TOKENWEATHERAPI = os.getenv('TOKENWEATHERAPI', 'b9e5e32ff3b34c7a8ca162250231409')
+TOKEN = os.getenv('TOKEN', '')
+TOKENWEATHERAPI = os.getenv('TOKENWEATHERAPI', '')
