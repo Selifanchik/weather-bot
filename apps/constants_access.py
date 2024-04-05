@@ -1,6 +1,11 @@
-HOST = 'pg_db:5432'
-DATABASE = 'selectel'
+import os
+
+HOST = 'db:5432'
+POSTGRES_DB = os.getenv('POSTGRES_DB')
 DIALECT = 'postgresql'
 
-LOGIN = 'selectel'
-PASSWORD = 'selectel'
+POSTGRES_USER = os.getenv('POSTGRES_USER')
+POSTGRES_PASSWORD = os.getenv('POSTGRES_PASSWORD')
+
+TOKEN = os.getenv('TOKEN')
+TOKENWEATHERAPI = os.getenv('TOKENWEATHERAPI')
