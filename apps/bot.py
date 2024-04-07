@@ -2,10 +2,10 @@ from pathlib import Path
 
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
-from apps.constants import TOKENWEATHERAPI
+from apps.constants import TOKEN_WEATHER_API
 from apps.weatherapi import Requests
-from apps.weatherconst import WINDDIR
-from apps.add_data import add_user, get_user
+from apps.weatherconst import WIND_DIR
+from apps.db.db import add_user, get_user
 
 CITY = 0
 
@@ -53,8 +53,8 @@ class BotConversation:
         add_user(user_k.first_name, str(user_k.id), user_k.username)
         d = get_user(str(user_k.id))
 
-        req = Requests(TOKENWEATHERAPI) 
-        print(user_k)
+        req = Requests(TOKEN_WEATHER_API) 
+        
         data = req.getWeather(text) 
         
         if data.status_code == 200: 
@@ -65,7 +65,7 @@ class BotConversation:
             condition = data.json()['current']['condition']['text']
             wind = data.json()['current']['wind_kph'] * 1000 / 3600
             wind_gust = data.json()['current']['gust_kph'] * 1000 / 3600
-            wind_dir = WINDDIR[data.json()['current']['wind_dir']]
+            wind_dir = WIND_DIR[data.json()['current']['wind_dir']]
             pressure_mb = data.json()['current']['pressure_mb'] / 1.333
             precip_mm = data.json()['current']['precip_mm']
             humidity = data.json()['current']['humidity']
@@ -81,7 +81,7 @@ class BotConversation:
 
 
         else:
-            await update.message.reply_text(f'Проверьте правильность написания города {text}')
+            await update.message.reply_text(f'Проверьте правильность написания города {text} {data.status_code}')
         return ConversationHandler.END
     
 

@@ -6,10 +6,10 @@ class Base(DeclarativeBase):
     pass
 
 
-class Userbot(Base):
-    __tablename__ = 'userbot'
+class UserBot(Base):
+    __tablename__ = 'user_bot'
     
     user_id = Column(Integer, autoincrement=True, primary_key=True, index=True)
     first_name = Column(String)
     user_chatid = Column(String, unique=True)
-    username = Column(String)
+    user_name = Column(String)

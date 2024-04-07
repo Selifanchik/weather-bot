@@ -1,5 +1,5 @@
 import requests 
-from apps.constants import TOKENWEATHERAPI
+from apps.constants import TOKEN_WEATHER_API
 
 
 class Requests: 
