@@ -2,7 +2,7 @@ from pathlib import Path
 
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
-from apps.constants import TOKEN_WEATHER_API
+from apps.constants import WEATHER_TOKEN
 from apps.weatherapi import Requests
 from apps.weatherconst import WIND_DIR
 from apps.db.db import add_user, get_user
@@ -53,7 +53,7 @@ class BotConversation:
         add_user(user_k.first_name, str(user_k.id), user_k.username)
         d = get_user(str(user_k.id))
 
-        req = Requests(TOKEN_WEATHER_API) 
+        req = Requests(WEATHER_TOKEN) 
         
         data = req.getWeather(text) 
         

@@ -1,4 +1,4 @@
 import os
 
-TOKEN = os.getenv('TOKEN')
-TOKEN_WEATHER_API = os.getenv('TOKEN_WEATHER_API')
+BOT_TOKEN = os.getenv('BOT_TOKEN')
+WEATHER_TOKEN = os.getenv('WEATHER_TOKEN')
