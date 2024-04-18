@@ -1,0 +1,8 @@
+services:
+  weatherbot:
+    build: .
+    volumes:
+      - .:/apps
+    environment:
+      - BOT_TOKEN
+      - WEATHER_TOKEN

@@ -1,6 +1,5 @@
 __pycache__
 apps/__pycache__
-docker-compose.yml
 myenv
 .env
 apps/weather_notif.py
