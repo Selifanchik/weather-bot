@@ -2,3 +2,4 @@ python-telegram-bot==20.4
 requests==2.31.0
 sqlalchemy==2.0.21
 psycopg2-binary==2.9.6
+pydantic==2.7.0

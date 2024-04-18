@@ -1,4 +1,5 @@
 from pathlib import Path
+from pydantic.dataclasses import dataclass
 
 from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import CommandHandler, ContextTypes, ConversationHandler, MessageHandler, filters
@@ -9,6 +10,29 @@ from apps.weatherconst import WIND_DIR
 
 CITY = 0
 
+
+@dataclass
+class ApiResponseLocation:
+    name: str
+
+
+@dataclass
+class ApiResponseCurrent:
+    temp_c: float
+    feelslike_c: float
+    condition: dict
+    wind_kph: float
+    gust_kph: float
+    wind_dir: str
+    pressure_mb: float
+    precip_mm: float
+    humidity: float
+
+
+@dataclass
+class ApiResponse:
+    location: ApiResponseLocation
+    current: ApiResponseCurrent
 
 class BotConversation:
     def metcast(self):
@@ -57,17 +81,17 @@ class BotConversation:
         data = req.getWeather(text) 
         
         if data.status_code == 200: 
-            print(data.json())
-            town = data.json()['location']['name']
-            temp = data.json()['current']['temp_c']
-            feelslike_temp = data.json()['current']['feelslike_c'] 
-            condition = data.json()['current']['condition']['text']
-            wind = data.json()['current']['wind_kph'] * 1000 / 3600
-            wind_gust = data.json()['current']['gust_kph'] * 1000 / 3600
-            wind_dir = WIND_DIR[data.json()['current']['wind_dir']]
-            pressure_mb = data.json()['current']['pressure_mb'] / 1.333
-            precip_mm = data.json()['current']['precip_mm']
-            humidity = data.json()['current']['humidity']
+            res = ApiResponse(**data.json())
+            town = res.location.name
+            temp = res.current.temp_c
+            feelslike_temp = res.current.feelslike_c
+            condition = res.current.condition['text']
+            wind = res.current.wind_kph * 1000 / 3600
+            wind_gust = res.current.gust_kph * 1000 / 3600
+            wind_dir = WIND_DIR[res.current.wind_dir]
+            pressure_mb = res.current.pressure_mb / 1.333
+            precip_mm = res.current.precip_mm
+            humidity = res.current.humidity
             await update.message.reply_text(f'Погода в городе {town}:\n\
 \n\
 {condition} {temp} °C\n\
